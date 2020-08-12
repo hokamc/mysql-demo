@@ -20,7 +20,8 @@
 - [Table of Contents](#table-of-contents)
 - [Set up Mysql by Docker](#set-up-mysql-by-docker)
 - [Shell control](#shell-control)
-- [Querying data](#querying-data)
+- [Querying](#querying)
+- [Sorting](#sorting)
 - [Authors](#authors)
 - [Credit](#credit)
 
@@ -44,7 +45,7 @@ docker container exec -it $CONTAINER bash \
 ```
 And then load sample database into mysql server for later usage.
 
-**Sample Database Schema**<br>
+**Sample Database Schema**<br><br>
 ![alt schema](https://sp.mysqltutorial.org/wp-content/uploads/2009/12/MySQL-Sample-Database-Schema.png)
 
 ## Shell control
@@ -52,14 +53,29 @@ And then load sample database into mysql server for later usage.
 - SHOW DATABASES
 - USE $database
 - SHOW TABLES
+- SHOW COLUMNS FROM $table
 
-## Querying data
+## Querying
 
-- SELECT $columes FROM $table
+- SELECT $columns FROM $table
 ```sql
 SELECT * FROM employees;
 SELECT lastName, firstName FROM employees;
 ```
+
+## Sorting
+
+- SELECT $columns FROM $table ORDER BY $column [ASC|DESC], ...
+```sql
+SELECT customerName, creditLimit FROM customers ORDER BY creditLimit ASC;
+SELECT customerName, creditLimit FROM customers ORDER BY customerName DESC, creditLimit ASC;
+```
+
+- ORDER BY *expresssion
+```sql
+SELECT orderNumber, quantityOrdered * priceEach FROM orderdetails ORDER BY quantityOrdered * priceEach DESC;
+```
+
 
 ## Authors
 
