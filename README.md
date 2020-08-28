@@ -1,6 +1,6 @@
 <p align="center">
   <a href="" rel="noopener">
- <img src="https://upload.wikimedia.org/wikipedia/zh/thumb/6/62/MySQL.svg/2560px-MySQL.svg.png"  width="200" alt="Git"></a>
+ <img src="https://upload.wikimedia.org/wikipedia/zh/thumb/6/62/MySQL.svg/2560px-MySQL.svg.png"  width="200" alt="MySql"></a>
 </p>
 <h1 align="center">Mysql Demo</h1>
 
@@ -27,6 +27,7 @@
 - [Grouping](#grouping)
 - [Modifying](#modifying)
 - [Transaction](#transaction)
+- [Managing](#managing)
 - [Authors](#authors)
 - [Credit](#credit)
 
@@ -193,7 +194,7 @@ REPLACE INTO new_employees(employeeNumber, extension) VALUES (1056,'y5000');
 
 ## Transaction
 
-- START TRANSACTION; $query; COMMIT;
+- START TRANSACTION; $query; COMMIT; [ROLLBACK;]
 ```sql
 START TRANSACTION;
 SELECT @orderNumber:=max(orderNumber)+1 FROM orders;
@@ -202,6 +203,34 @@ COMMIT;
 ```
 
 - LOCK TABLES $table [READ | WRITE]
+
+## Managing
+
+- CREATE TABLE [IF NOT EXISTS] $table ($columnName \$columnsDefinition ...) [ENGINE=$engine];
+```sql
+CREATE TABLE IF NOT EXISTS abnormal_order (
+  id INT NOT NUll AUTO_INCREMENT,
+  cash DECIMAL(20, 6) NOT NULL DEFAULT 10,
+  orderNumber INT NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (orderNumber) REFERENCES orders (orderNumber) ON UPDATE RESTRICT ON DELETE CASCADE
+);
+```
+
+- ALTER TABLE $table ADD $columnName \$columnsDefinition ...
+```sql
+ALTER TABLE abnormal_order ADD name TEXT NOT NULL;
+```
+
+- ALTER TABLE $table MODIFY $columnName \$columnsDefinition ...
+```sql
+ALTER TABLE abnormal_order MODIFY name VARCHAR;
+```
+
+- ALTER TABLE $table CHANGE COLUMN $columnName $newColumnName \$columnsDefinition ...
+```sql
+ALTER TABLE abnormal_order CHANGE COLUMN name new_name;
+```
 
 ## Authors
 
